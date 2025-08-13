@@ -10,22 +10,9 @@
 		2BAF519E2E4C87A900159159 /* Lucky Eagle Gaming.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lucky Eagle Gaming.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2BAF51B02E4C87CC00159159 /* Exceptions for "Lucky Eagle Gaming" folder in "Lucky Eagle Gaming" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Lucky-Eagle-Gaming-Info.plist",
-			);
-			target = 2BAF519D2E4C87A900159159 /* Lucky Eagle Gaming */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2BAF51A02E4C87A900159159 /* Lucky Eagle Gaming */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2BAF51B02E4C87CC00159159 /* Exceptions for "Lucky Eagle Gaming" folder in "Lucky Eagle Gaming" target */,
-			);
 			path = "Lucky Eagle Gaming";
 			sourceTree = "<group>";
 		};

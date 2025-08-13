@@ -1,3 +1,11 @@
+//
+//  NEGCoinBg.swift
+//  Lucky Eagle Gaming
+//
+//  Created by Dias Atudinov on 13.08.2025.
+//
+
+
 import SwiftUI
 
 struct NEGCoinBg: View {
@@ -5,15 +13,15 @@ struct NEGCoinBg: View {
     var height: CGFloat = NEGDeviceManager.shared.deviceType == .pad ? 100:50
     var body: some View {
         ZStack {
-            Image(.coinsBgNEG)
+            Image(.coinsBgLEG)
                 .resizable()
                 .scaledToFit()
             
             Text("\(user.money)")
-                .font(.system(size: NEGDeviceManager.shared.deviceType == .pad ? 30:15, weight: .black))
-                .foregroundStyle(.yellow)
+                .font(.system(size: NEGDeviceManager.shared.deviceType == .pad ? 40:25, weight: .black))
+                .foregroundStyle(.white)
                 .textCase(.uppercase)
-                .offset(x: -15)
+                .offset(x: -25, y: -4)
             
             
             

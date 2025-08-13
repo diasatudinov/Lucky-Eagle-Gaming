@@ -1,12 +1,21 @@
+//
+//  NEGAchievementsViewModel.swift
+//  Lucky Eagle Gaming
+//
+//  Created by Dias Atudinov on 13.08.2025.
+//
+
+
 import SwiftUI
 
 class NEGAchievementsViewModel: ObservableObject {
     
     @Published var achievements: [NEGAchievement] = [
-        NEGAchievement(image: "achieve1ImageNEG", title: "Zombie party", subtitle: "There should be 15 zombies in one field." ,isAchieved: false),
-        NEGAchievement(image: "achieve2ImageNEG", title: "Brain Party", subtitle: "Collect 1000 brains" ,isAchieved: false),
-        NEGAchievement(image: "achieve3ImageNEG", title: "Full house at cemetery", subtitle: "Lose 1000 zombies" ,isAchieved: false),
-        NEGAchievement(image: "achieve4ImageNEG", title: "Five hundred dead", subtitle: "Kill 500 warriors" ,isAchieved: false),
+        NEGAchievement(image: "achieve1ImageLEG",isAchieved: false),
+        NEGAchievement(image: "achieve2ImageLEG",isAchieved: false),
+        NEGAchievement(image: "achieve3ImageLEG",isAchieved: false),
+        NEGAchievement(image: "achieve4ImageLEG",isAchieved: false),
+        NEGAchievement(image: "achieve5ImageLEG",isAchieved: false),
 
     ] {
         didSet {
@@ -19,7 +28,7 @@ class NEGAchievementsViewModel: ObservableObject {
         
     }
     
-    private let userDefaultsAchievementsKey = "achievementsKeyNG"
+    private let userDefaultsAchievementsKey = "achievementsKeyNEG"
     
     func achieveToggle(_ achive: NEGAchievement) {
         guard let index = achievements.firstIndex(where: { $0.id == achive.id })
@@ -51,7 +60,5 @@ class NEGAchievementsViewModel: ObservableObject {
 struct NEGAchievement: Codable, Hashable, Identifiable {
     var id = UUID()
     var image: String
-    var title: String
-    var subtitle: String
     var isAchieved: Bool
 }

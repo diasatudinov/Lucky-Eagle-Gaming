@@ -1,31 +1,36 @@
+//
+//  NEGShopViewModel.swift
+//  Lucky Eagle Gaming
+//
+//
+
+
 import SwiftUI
 
 
 final class NEGShopViewModel: ObservableObject {
     // MARK: – Shop catalogues
     @Published var shopBgItems: [NGItem] = [
-        NGItem(name: "bg1", image: "bgImage1NEG", icon: "gameBgIcon1NEG", price: 100),
-        NGItem(name: "bg2", image: "bgImage2NEG", icon: "gameBgIcon2NEG", price: 100),
-        NGItem(name: "bg3", image: "bgImage3NEG", icon: "gameBgIcon3NEG", price: 100),
-        NGItem(name: "bg4", image: "bgImage4NEG", icon: "gameBgIcon4NEG", price: 100),
+        NGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
+        NGItem(name: "bg1", image: "bgImage1LEG", icon: "gameBgIcon1LEG", price: 100),
+        NGItem(name: "bg3", image: "bgImage3LEG", icon: "gameBgIcon3LEG", price: 100),
     ]
     
     @Published var shopSkinItems: [NGItem] = [
-        NGItem(name: "skin1", image: "skinImage1NEG", icon: "skinIcon1NEG", price: 100),
-        NGItem(name: "skin2", image: "skinImage2NEG", icon: "skinIcon2NEG", price: 100),
-        NGItem(name: "skin3", image: "skinImage3NEG", icon: "skinIcon3NEG", price: 100),
-        NGItem(name: "skin4", image: "skinImage4NEG", icon: "skinIcon4NEG", price: 100),
+        NGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
+        NGItem(name: "skin1", image: "skinImage1LEG", icon: "skinIcon1LEG", price: 100),
+        NGItem(name: "skin3", image: "skinImage3LEG", icon: "skinIcon3LEG", price: 100),
     ]
     
     // MARK: – Bought
     @Published var boughtBgItems: [NGItem] = [
-        NGItem(name: "bg1", image: "bgImage1NEG", icon: "gameBgIcon1NEG", price: 100),
+        NGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
     ] {
         didSet { saveBoughtBg() }
     }
 
     @Published var boughtSkinItems: [NGItem] = [
-        NGItem(name: "skin1", image: "skinImage1NEG", icon: "skinIcon1NEG", price: 100),
+        NGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
     ] {
         didSet { saveBoughtSkins() }
     }
@@ -39,10 +44,10 @@ final class NEGShopViewModel: ObservableObject {
     }
     
     // MARK: – UserDefaults keys
-    private let bgKey            = "currentBgNEG"
-    private let boughtBgKey      = "boughtBgNEG"
-    private let skinKey          = "currentSkinNEG1"
-    private let boughtSkinKey    = "boughtSkinNEG1"
+    private let bgKey            = "currentBgLEG"
+    private let boughtBgKey      = "boughtBgLEG"
+    private let skinKey          = "currentSkinLEG1"
+    private let boughtSkinKey    = "boughtSkinLEG1"
     
     // MARK: – Init
     init() {
@@ -171,6 +176,14 @@ final class NEGShopViewModel: ObservableObject {
             }
             
             return true
+        }
+    }
+    
+    func nextCategory(category: NGItemCategory) -> NGItemCategory {
+        if category == .skin {
+            return .background
+        } else {
+            return .skin
         }
     }
 }

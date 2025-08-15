@@ -2,7 +2,6 @@
 //  LEGMenuView.swift
 //  Lucky Eagle Gaming
 //
-//  Created by Dias Atudinov on 13.08.2025.
 //
 
 import SwiftUI
@@ -95,11 +94,7 @@ struct LEGMenuView: View {
         .fullScreenCover(isPresented: $showSettings) {
             LEGSettingsView()
         }
-        .fullScreenCover(isPresented: $showDailyTask) {
-//            DailyRewardsView()
-        }
     }
-    
 }
 
 #Preview {

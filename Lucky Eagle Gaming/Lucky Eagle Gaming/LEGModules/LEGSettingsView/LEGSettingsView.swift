@@ -20,18 +20,18 @@ struct LEGSettingsView: View {
                     
                     VStack {
                         
-                        HStack {
-                            
-                            Image(.musicTextLEG)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
-                            Image(.onTextLEG)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
-                            
-                        }
+//                        HStack {
+//                            
+//                            Image(.musicTextLEG)
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+//                            Image(.onTextLEG)
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+//                            
+//                        }
                         
                         VStack(alignment: .leading) {
                             Image(.volumeTextLEG)

@@ -2,7 +2,6 @@
 //  ContentView.swift
 //  Lucky Eagle Gaming
 //
-//  Created by Dias Atudinov on 18.08.2025.
 //
 
 

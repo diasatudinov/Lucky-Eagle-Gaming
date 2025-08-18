@@ -89,7 +89,7 @@ struct LEGMenuView: View {
             LEGAchievementsView()
         }
         .fullScreenCover(isPresented: $showShop) {
-//            NEGShopView(viewModel: shopVM)
+            LEGShopView()
         }
         .fullScreenCover(isPresented: $showSettings) {
             LEGSettingsView()

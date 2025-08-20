@@ -1,5 +1,5 @@
 //
-//  NEGUser.swift
+//  LEGUser.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-class NEGUser: ObservableObject {
+class LEGUser: ObservableObject {
     
-    static let shared = NEGUser()
+    static let shared = LEGUser()
     
     @AppStorage("achievement") var achievementNum: Int = 0
     @AppStorage("money") var storedMoney: Int = 100

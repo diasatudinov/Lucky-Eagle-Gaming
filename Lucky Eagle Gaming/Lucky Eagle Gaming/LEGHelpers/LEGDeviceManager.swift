@@ -1,5 +1,5 @@
 //
-//  NEGDeviceManager.swift
+//  LEGDeviceManager.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class NEGDeviceManager {
-    static let shared = NEGDeviceManager()
+class LEGDeviceManager {
+    static let shared = LEGDeviceManager()
     
     var deviceType: UIUserInterfaceIdiom
     

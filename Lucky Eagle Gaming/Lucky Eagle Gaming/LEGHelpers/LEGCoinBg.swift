@@ -1,5 +1,5 @@
 //
-//  NEGCoinBg.swift
+//  LEGCoinBg.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NEGCoinBg: View {
+struct LEGCoinBg: View {
     @StateObject var user = NEGUser.shared
     var height: CGFloat = NEGDeviceManager.shared.deviceType == .pad ? 100:50
     var body: some View {
@@ -30,5 +30,5 @@ struct NEGCoinBg: View {
 }
 
 #Preview {
-    NEGCoinBg()
+    LEGCoinBg()
 }

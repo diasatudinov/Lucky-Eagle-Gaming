@@ -1,5 +1,5 @@
 //
-//  NEGShopViewModel.swift
+//  LEGShopViewModel.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-final class NEGShopViewModel: ObservableObject {
+final class LEGShopViewModel: ObservableObject {
     // MARK: – Shop catalogues
     @Published var shopBgItems: [NGItem] = [
         NGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
@@ -44,10 +44,10 @@ final class NEGShopViewModel: ObservableObject {
     }
     
     // MARK: – UserDefaults keys
-    private let bgKey            = "currentBgLEG"
-    private let boughtBgKey      = "boughtBgLEG"
-    private let skinKey          = "currentSkinLEG1"
-    private let boughtSkinKey    = "boughtSkinLEG1"
+    private let bgKey            = "currentBgLEG1"
+    private let boughtBgKey      = "boughtBgLEG1"
+    private let skinKey          = "currentSkinLEG2"
+    private let boughtSkinKey    = "boughtSkinLEG2"
     
     // MARK: – Init
     init() {
@@ -131,7 +131,7 @@ final class NEGShopViewModel: ObservableObject {
         }
     }
 
-    func selectOrBuy(_ item: NGItem, user: NEGUser, category: NGItemCategory) {
+    func selectOrBuy(_ item: NGItem, user: LEGUser, category: NGItemCategory) {
         
         switch category {
         case .background:
@@ -157,7 +157,7 @@ final class NEGShopViewModel: ObservableObject {
         }
     }
     
-    func isMoneyEnough(item: NGItem, user: NEGUser, category: NGItemCategory) -> Bool {
+    func isMoneyEnough(item: NGItem, user: LEGUser, category: NGItemCategory) -> Bool {
         user.money >= item.price
     }
     

@@ -2,7 +2,6 @@
 //  GameScene.swift
 //  Lucky Eagle Gaming
 //
-//  Created by Dias Atudinov on 18.08.2025.
 //
 
 
@@ -60,8 +59,11 @@ extension SKSpriteNode {
 
 // MARK: - GameScene
 
-final class GameScene: SKScene {
-
+final class LEGGameScene: SKScene {
+    let shopVM = NEGShopViewModel()
+    var victoryHandler: ((Bool) -> ())?
+    var repsSpawnHandler: ((Bool, Int) -> ())?
+    
     // Grid
     private let cols = 13, rows = 20
     private let padding: CGFloat = 16
@@ -93,10 +95,17 @@ final class GameScene: SKScene {
     // HUD
     private var hudLabel: SKLabelNode!
 
+    private var playerBaseNode: SKSpriteNode!
+    private var enemyBaseNode: SKSpriteNode!
+    private var playerScoreLabel: SKLabelNode!
+    private var enemyScoreLabel: SKLabelNode!
+    private var playerScoreBG: SKSpriteNode!
+    private var enemyScoreBG: SKSpriteNode!
+    
     // MARK: - Scene life cycle
 
     override func didMove(to view: SKView) {
-        backgroundColor = .black
+        backgroundColor = .clear
         addChild(gridNode)
         drawGrid()
         addBasesInCorners()
@@ -212,21 +221,79 @@ final class GameScene: SKScene {
     // MARK: - Bases (decor)
 
     private func addBasesInCorners() {
-        let baseTargetSize = CGSize(width: size.width * 0.3, height: size.height * 0.3)
+        let baseTargetSize = CGSize(width: size.width * 0.35, height: size.height * 0.35)
 
-        let playerBase = SKSpriteNode(imageNamed: "playerBase")
+        // пересоздаём, если были
+        playerBaseNode?.removeFromParent()
+        enemyBaseNode?.removeFromParent()
+
+        // наша база — левый нижний
+        guard let baseImage = shopVM.currentBgItem else { return }
+        let playerBase = SKSpriteNode(imageNamed: baseImage.image)
         playerBase.setScaledToFit(targetSize: baseTargetSize)
         playerBase.anchorPoint = CGPoint(x: 0, y: 0)
         playerBase.position = CGPoint(x: 16, y: 16)
         addChild(playerBase)
+        playerBaseNode = playerBase
 
+        // база соперника — правый верхний
         let enemyBase = SKSpriteNode(imageNamed: "enemyBase")
         enemyBase.setScaledToFit(targetSize: baseTargetSize)
         enemyBase.anchorPoint = CGPoint(x: 1, y: 1)
         enemyBase.position = CGPoint(x: size.width - 16, y: size.height - 16)
         addChild(enemyBase)
+        enemyBaseNode = enemyBase
+
+        let bgTargetPlayer = CGSize(width: playerBase.size.width * 0.60,
+                                    height: playerBase.size.height * 0.34)
+        let bgTargetEnemy  = CGSize(width: enemyBase.size.width * 0.60,
+                                    height: enemyBase.size.height * 0.34)
+        
+        let pBG = SKSpriteNode(imageNamed: "scorePBG")
+        pBG.setScaledToFit(targetSize: bgTargetPlayer)
+        pBG.zPosition = 1
+        pBG.position = CGPoint(x: playerBase.size.width/2, y: playerBase.size.height/2)
+        playerBase.addChild(pBG)
+        playerScoreBG = pBG
+        
+        let eBG = SKSpriteNode(imageNamed: "scoreEBG")
+        eBG.setScaledToFit(targetSize: bgTargetEnemy)
+        eBG.zPosition = 1
+        // у правой-верхней базы центр в локальных координатах (0,0), поэтому отрицательные смещения
+        eBG.position = CGPoint(x: -enemyBase.size.width/2, y: -enemyBase.size.height/2)
+        enemyBase.addChild(eBG)
+        enemyScoreBG = eBG
+        // --------------------------------------------------------------
+        
+        // Лейблы очков поверх фона
+        func makeScoreLabel(color: SKColor) -> SKLabelNode {
+            let l = SKLabelNode(fontNamed: "Menlo-Bold")
+            l.fontSize = min(14, baseTargetSize.width * 0.25)
+            l.fontColor = color
+            l.horizontalAlignmentMode = .center
+            l.verticalAlignmentMode = .center
+            l.zPosition = 2   // ВЫШЕ, чем фон
+            l.text = "0"
+            return l
+        }
+        
+        playerScoreLabel = makeScoreLabel(color: .white)
+        enemyScoreLabel  = makeScoreLabel(color: .white)
+        
+        playerScoreLabel.position = pBG.position
+        enemyScoreLabel.position  = eBG.position
+        
+        playerBase.addChild(playerScoreLabel)
+        enemyBase.addChild(enemyScoreLabel)
+        
+        updateScoreLabels()
     }
 
+    private func updateScoreLabels() {
+        playerScoreLabel?.text = "\(playerScore)"
+        enemyScoreLabel?.text  = "\(enemyScore)"
+    }
+    
     // MARK: - Spawns (grid-locked)
 
     private func randomEmptyCell(in rect: (x: ClosedRange<Int>, y: ClosedRange<Int>)) -> GridPos {
@@ -359,6 +426,7 @@ final class GameScene: SKScene {
     }
 
     private func processEnemy(at index: Int) {
+        sleep(1)
         if isPaused { return }
         guard !enemyUnits.isEmpty else { startPlayerTurn(); return }
         if index >= enemyUnits.count { startPlayerTurn(); return }
@@ -425,7 +493,13 @@ final class GameScene: SKScene {
         }()
 
         if attackerWins {
-            if attacker.team == .player { playerScore += 500 } else { enemyScore += 500 }
+            if attacker.team == .player {
+                playerScore += 500
+                repsSpawnHandler?(true, 2)
+            } else {
+                enemyScore += 500
+                repsSpawnHandler?(true, 3)
+            }
             let targetCell = defender.cell
             removeUnit(defender)                 // чистит occupied[targetCell]
             occupied[attacker.cell] = nil
@@ -433,7 +507,13 @@ final class GameScene: SKScene {
                 completion?()
             }
         } else {
-            if defender.team == .player { playerScore += 500 } else { enemyScore += 500 }
+            if defender.team == .player {
+                playerScore += 500
+                repsSpawnHandler?(true, 2)
+            } else {
+                enemyScore += 500
+                repsSpawnHandler?(true, 3)
+            }
             let old = attacker.cell
             removeUnit(attacker)
             occupied[old] = nil
@@ -461,8 +541,13 @@ final class GameScene: SKScene {
     private func checkChestCollection(for unit: Unit) {
         if let i = chests.firstIndex(where: { $0.cell == unit.cell }) {
             let chest = chests.remove(at: i)
-            if unit.team == .player { playerScore += chest.type.rawValue }
-            else { enemyScore += chest.type.rawValue }
+            if unit.team == .player {
+                playerScore += chest.type.rawValue
+                repsSpawnHandler?(true, 4)
+            } else {
+                enemyScore += chest.type.rawValue
+            }
+            
             chest.removeFromParent()
         }
     }
@@ -498,18 +583,26 @@ final class GameScene: SKScene {
     private func endGame() {
         guard !isPaused else { return }
         let winner: String
-        if playerUnits.isEmpty { winner = "Enemy Wins!" }
-        else if enemyUnits.isEmpty { winner = "Player Wins!" }
-        else if playerScore > enemyScore { winner = "Player Wins!" }
-        else if enemyScore > playerScore { winner = "Enemy Wins!" }
-        else { winner = "Draw" }
-
-        let label = SKLabelNode(text: winner)
-        label.fontName = "Menlo-Bold"
-        label.fontSize = 38
-        label.position = CGPoint(x: size.width/2, y: size.height/2)
-        label.zPosition = 200
-        addChild(label)
+        if playerUnits.isEmpty {
+            winner = "Enemy Wins!"
+            victoryHandler?(false)
+        }
+        else if enemyUnits.isEmpty {
+            winner = "Player Wins!"
+            victoryHandler?(true)
+        }
+        else if playerScore > enemyScore {
+            winner = "Player Wins!"
+            victoryHandler?(true)
+        }
+        else if enemyScore > playerScore {
+            winner = "Enemy Wins!"
+            victoryHandler?(false)
+        }
+        else {
+            winner = "Draw"
+            victoryHandler?(false)
+        }
         isPaused = true
     }
 
@@ -527,10 +620,11 @@ final class GameScene: SKScene {
 
     private func updateHUD() {
         let timeText = "⏱ \(max(0, Int(remainingTime)))"
-        let scoreText = "🟦 \(playerScore) : \(enemyScore) 🟥"
-        let turnText: String = (currentTurn == .enemy)
-            ? "Ход ИИ…"
-            : "Ваш ход (\(availablePlayerMoves()))"
-        hudLabel.text = "\(timeText)   \(scoreText)   \(turnText)"
+//        let scoreText = "🟦 \(playerScore) : \(enemyScore) 🟥"
+//        let turnText: String = (currentTurn == .enemy)
+//            ? "Ход ИИ…"
+//            : "Ваш ход (\(availablePlayerMoves()))"
+        hudLabel.text = "\(timeText)"
+        updateScoreLabels()
     }
 }

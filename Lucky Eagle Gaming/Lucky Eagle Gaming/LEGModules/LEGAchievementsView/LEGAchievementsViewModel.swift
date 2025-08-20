@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class NEGAchievementsViewModel: ObservableObject {
+class LEGAchievementsViewModel: ObservableObject {
     
     @Published var achievements: [NEGAchievement] = [
         NEGAchievement(image: "achieve1ImageLEG",isAchieved: false),

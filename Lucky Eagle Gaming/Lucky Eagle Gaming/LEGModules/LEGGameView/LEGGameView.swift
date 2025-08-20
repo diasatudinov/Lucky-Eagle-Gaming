@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LEGGameView.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -11,8 +11,8 @@ import SpriteKit
 struct LEGGameView: View {
     @Environment(\.presentationMode) var presentationMode
 
-    @State var gameScene: GameScene = {
-        let scene = GameScene(size: UIScreen.main.bounds.size)
+    @State var gameScene: LEGGameScene = {
+        let scene = LEGGameScene(size: UIScreen.main.bounds.size)
         scene.scaleMode = .resizeFill
         
         return scene
@@ -22,11 +22,20 @@ struct LEGGameView: View {
     @State var gameWin: Bool?
     var body: some View {
         ZStack {
-            Image(.gameBgLEG)
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-            NGSpriteViewContainer(
+            if LEGDeviceManager.shared.deviceType == .pad {
+                Image(.gameBgLEG)
+                    .resizable()
+                    .ignoresSafeArea()
+            } else {
+                Image(.gameBgLEG)
+                    .resizable()
+                    .ignoresSafeArea()
+                    .scaledToFill()
+            }
+            
+                
+                
+            LEGSpriteViewContainer(
                 scene: gameScene,
                 gameWin: $gameWin,
                 showRepOverlay: $showRepOverlay,

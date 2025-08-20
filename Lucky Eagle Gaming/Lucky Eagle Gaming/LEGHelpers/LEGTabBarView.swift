@@ -24,27 +24,27 @@ struct LEGTabBarView: View {
                     Image(.shopIconLEG1)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     
                     Image(.dailyTasksIconLEG)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     
                     Image(.playIconLEG)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 160:88)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 160:88)
                     
                     Image(.settingsIconLEG1)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     
                     Image(.achievementsIconLEG1)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                 }
             }.frame(maxWidth: .infinity).ignoresSafeArea()
         }

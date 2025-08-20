@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LEGCoinBg: View {
-    @StateObject var user = NEGUser.shared
-    var height: CGFloat = NEGDeviceManager.shared.deviceType == .pad ? 100:50
+    @StateObject var user = LEGUser.shared
+    var height: CGFloat = LEGDeviceManager.shared.deviceType == .pad ? 100:50
     var body: some View {
         ZStack {
             Image(.coinsBgLEG)
@@ -17,7 +17,7 @@ struct LEGCoinBg: View {
                 .scaledToFit()
             
             Text("\(user.money)")
-                .font(.system(size: NEGDeviceManager.shared.deviceType == .pad ? 40:25, weight: .black))
+                .font(.system(size: LEGDeviceManager.shared.deviceType == .pad ? 40:25, weight: .black))
                 .foregroundStyle(.white)
                 .textCase(.uppercase)
                 .offset(x: -25, y: -4)

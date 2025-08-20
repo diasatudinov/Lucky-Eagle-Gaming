@@ -8,7 +8,7 @@ import SwiftUI
 
 struct LEGSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var settingsVM = NGSettingsViewModel()
+    @StateObject var settingsVM = LEGSettingsViewModel()
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 0) {
@@ -37,12 +37,12 @@ struct LEGSettingsView: View {
                             Image(.volumeTextLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                             
                             Image(settingsVM.soundEnabled ?.volumeOnLEG : .volumeOffLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                                 .onTapGesture {
                                     withAnimation {
                                         settingsVM.soundEnabled.toggle()
@@ -54,12 +54,12 @@ struct LEGSettingsView: View {
                             Image(.btightnessTextLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                             
                             Image(settingsVM.brigthnessEnabled ? .volumeOnLEG : .volumeOffLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                                 .onTapGesture {
                                     withAnimation {
                                         settingsVM.brigthnessEnabled.toggle()
@@ -72,12 +72,12 @@ struct LEGSettingsView: View {
                             Image(.languageTextLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                             
                             Image(.englishTextLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 50:35)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 50:35)
                                
                         }
                     }.padding(.top)
@@ -95,7 +95,7 @@ struct LEGSettingsView: View {
                         Image(.backIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 140:70)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 140:70)
                     }
                     Spacer()
                 }.padding()

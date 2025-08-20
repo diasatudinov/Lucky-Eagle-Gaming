@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  LEGGameScene.swift
 //  Lucky Eagle Gaming
 //
 //
@@ -60,7 +60,7 @@ extension SKSpriteNode {
 // MARK: - GameScene
 
 final class LEGGameScene: SKScene {
-    let shopVM = NEGShopViewModel()
+    let shopVM = LEGShopViewModel()
     var victoryHandler: ((Bool) -> ())?
     var repsSpawnHandler: ((Bool, Int) -> ())?
     

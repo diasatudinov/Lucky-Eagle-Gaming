@@ -1,3 +1,10 @@
+//
+//  AppDelegate.swift
+//  Lucky Eagle Gaming
+//
+//
+
+
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {

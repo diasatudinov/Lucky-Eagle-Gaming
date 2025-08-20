@@ -16,7 +16,7 @@ struct LEGRoot: View {
     var body: some View {
         ZStack {
             if verse == 1 {
-                NEGWVWrap(urlString: NEGLinks.winStarData)
+                LEGWVWrap(urlString: LEGLinks.winStarData)
             } else {
                 VStack {
                     if isLoading {
@@ -44,9 +44,9 @@ struct LEGRoot: View {
     }
     
     func updateIfNeeded() {
-        if NEGLinks.shared.finalURL == nil {
+        if LEGLinks.shared.finalURL == nil {
             Task {
-                if await !NEGResolver.checking() {
+                if await !LEGResolver.checking() {
                     verse = 1
                     toUp = false
                     isLoading = false

@@ -16,7 +16,7 @@ struct LEGMenuView: View {
     @State private var showDailyTask = false
     
 //    @StateObject var achievementVM = NEGAchievementsViewModel()
-    @StateObject var settingsVM = NGSettingsViewModel()
+    @StateObject var settingsVM = LEGSettingsViewModel()
 //    @StateObject var shopVM = NEGShopViewModel()
     
     var body: some View {
@@ -35,7 +35,7 @@ struct LEGMenuView: View {
                         Image(.shopIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     }
                     
                     Button {
@@ -44,7 +44,7 @@ struct LEGMenuView: View {
                         Image(.achievementsIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     }
                     
                     Button {
@@ -53,7 +53,7 @@ struct LEGMenuView: View {
                         Image(.settingsIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 100:60)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 100:60)
                     }
                     
                     ZStack {
@@ -68,7 +68,7 @@ struct LEGMenuView: View {
                             Image(.playIconLEG)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 160:88)
+                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 160:88)
                         }
                         
                     }.frame(maxWidth: .infinity).ignoresSafeArea()
@@ -83,7 +83,7 @@ struct LEGMenuView: View {
             }.edgesIgnoringSafeArea(.all)
         )
         .fullScreenCover(isPresented: $showGame) {
-//            NGRoundSelectionView()
+            LEGLevelSelectView()
         }
         .fullScreenCover(isPresented: $showAchievement) {
             LEGAchievementsView()

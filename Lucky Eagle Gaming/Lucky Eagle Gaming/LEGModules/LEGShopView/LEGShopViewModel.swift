@@ -10,36 +10,36 @@ import SwiftUI
 
 final class LEGShopViewModel: ObservableObject {
     // MARK: – Shop catalogues
-    @Published var shopBgItems: [NGItem] = [
-        NGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
-        NGItem(name: "bg1", image: "bgImage1LEG", icon: "gameBgIcon1LEG", price: 100),
-        NGItem(name: "bg3", image: "bgImage3LEG", icon: "gameBgIcon3LEG", price: 100),
+    @Published var shopBgItems: [LEGItem] = [
+        LEGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
+        LEGItem(name: "bg1", image: "bgImage1LEG", icon: "gameBgIcon1LEG", price: 100),
+        LEGItem(name: "bg3", image: "bgImage3LEG", icon: "gameBgIcon3LEG", price: 100),
     ]
     
-    @Published var shopSkinItems: [NGItem] = [
-        NGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
-        NGItem(name: "skin1", image: "skinImage1LEG", icon: "skinIcon1LEG", price: 100),
-        NGItem(name: "skin3", image: "skinImage3LEG", icon: "skinIcon3LEG", price: 100),
+    @Published var shopSkinItems: [LEGItem] = [
+        LEGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
+        LEGItem(name: "skin1", image: "skinImage1LEG", icon: "skinIcon1LEG", price: 100),
+        LEGItem(name: "skin3", image: "skinImage3LEG", icon: "skinIcon3LEG", price: 100),
     ]
     
     // MARK: – Bought
-    @Published var boughtBgItems: [NGItem] = [
-        NGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
+    @Published var boughtBgItems: [LEGItem] = [
+        LEGItem(name: "bg2", image: "bgImage2LEG", icon: "gameBgIcon2LEG", price: 100),
     ] {
         didSet { saveBoughtBg() }
     }
 
-    @Published var boughtSkinItems: [NGItem] = [
-        NGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
+    @Published var boughtSkinItems: [LEGItem] = [
+        LEGItem(name: "skin2", image: "skinImage2LEG", icon: "skinIcon2LEG", price: 100),
     ] {
         didSet { saveBoughtSkins() }
     }
     
     // MARK: – Current selections
-    @Published var currentBgItem: NGItem? {
+    @Published var currentBgItem: LEGItem? {
         didSet { saveCurrentBg() }
     }
-    @Published var currentSkinItem: NGItem? {
+    @Published var currentSkinItem: LEGItem? {
         didSet { saveCurrentSkin() }
     }
     
@@ -67,7 +67,7 @@ final class LEGShopViewModel: ObservableObject {
     }
     private func loadCurrentBg() {
         if let data = UserDefaults.standard.data(forKey: bgKey),
-           let item = try? JSONDecoder().decode(NGItem.self, from: data) {
+           let item = try? JSONDecoder().decode(LEGItem.self, from: data) {
             currentBgItem = item
         } else {
             currentBgItem = shopBgItems.first
@@ -79,7 +79,7 @@ final class LEGShopViewModel: ObservableObject {
     }
     private func loadBoughtBg() {
         if let data = UserDefaults.standard.data(forKey: boughtBgKey),
-           let items = try? JSONDecoder().decode([NGItem].self, from: data) {
+           let items = try? JSONDecoder().decode([LEGItem].self, from: data) {
             boughtBgItems = items
         }
     }
@@ -93,7 +93,7 @@ final class LEGShopViewModel: ObservableObject {
     }
     private func loadCurrentSkin() {
         if let data = UserDefaults.standard.data(forKey: skinKey),
-           let item = try? JSONDecoder().decode(NGItem.self, from: data) {
+           let item = try? JSONDecoder().decode(LEGItem.self, from: data) {
             currentSkinItem = item
         } else {
             currentSkinItem = shopSkinItems.first
@@ -105,13 +105,13 @@ final class LEGShopViewModel: ObservableObject {
     }
     private func loadBoughtSkins() {
         if let data = UserDefaults.standard.data(forKey: boughtSkinKey),
-           let items = try? JSONDecoder().decode([NGItem].self, from: data) {
+           let items = try? JSONDecoder().decode([LEGItem].self, from: data) {
             boughtSkinItems = items
         }
     }
     
     // MARK: – Example buy action
-    func buy(_ item: NGItem, category: NGItemCategory) {
+    func buy(_ item: LEGItem, category: LEGItemCategory) {
         switch category {
         case .background:
             guard !boughtBgItems.contains(item) else { return }
@@ -122,7 +122,7 @@ final class LEGShopViewModel: ObservableObject {
         }
     }
     
-    func isPurchased(_ item: NGItem, category: NGItemCategory) -> Bool {
+    func isPurchased(_ item: LEGItem, category: LEGItemCategory) -> Bool {
         switch category {
         case .background:
             return boughtBgItems.contains(where: { $0.name == item.name })
@@ -131,7 +131,7 @@ final class LEGShopViewModel: ObservableObject {
         }
     }
 
-    func selectOrBuy(_ item: NGItem, user: LEGUser, category: NGItemCategory) {
+    func selectOrBuy(_ item: LEGItem, user: LEGUser, category: LEGItemCategory) {
         
         switch category {
         case .background:
@@ -157,11 +157,11 @@ final class LEGShopViewModel: ObservableObject {
         }
     }
     
-    func isMoneyEnough(item: NGItem, user: LEGUser, category: NGItemCategory) -> Bool {
+    func isMoneyEnough(item: LEGItem, user: LEGUser, category: LEGItemCategory) -> Bool {
         user.money >= item.price
     }
     
-    func isCurrentItem(item: NGItem, category: NGItemCategory) -> Bool {
+    func isCurrentItem(item: LEGItem, category: LEGItemCategory) -> Bool {
         switch category {
         case .background:
             guard let currentItem = currentBgItem, currentItem.name == item.name else {
@@ -179,7 +179,7 @@ final class LEGShopViewModel: ObservableObject {
         }
     }
     
-    func nextCategory(category: NGItemCategory) -> NGItemCategory {
+    func nextCategory(category: LEGItemCategory) -> LEGItemCategory {
         if category == .skin {
             return .background
         } else {
@@ -188,12 +188,12 @@ final class LEGShopViewModel: ObservableObject {
     }
 }
 
-enum NGItemCategory: String {
+enum LEGItemCategory: String {
     case background = "background"
     case skin = "skin"
 }
 
-struct NGItem: Codable, Hashable {
+struct LEGItem: Codable, Hashable {
     var id = UUID()
     var name: String
     var image: String

@@ -8,9 +8,11 @@ import SwiftUI
 
 @main
 struct Lucky_Eagle_GamingApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LEGRoot()
+                .preferredColorScheme(.light)
         }
     }
 }

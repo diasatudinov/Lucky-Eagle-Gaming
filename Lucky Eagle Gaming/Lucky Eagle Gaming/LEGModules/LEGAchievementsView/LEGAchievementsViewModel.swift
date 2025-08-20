@@ -9,12 +9,12 @@ import SwiftUI
 
 class LEGAchievementsViewModel: ObservableObject {
     
-    @Published var achievements: [NEGAchievement] = [
-        NEGAchievement(image: "achieve1ImageLEG",isAchieved: false),
-        NEGAchievement(image: "achieve2ImageLEG",isAchieved: false),
-        NEGAchievement(image: "achieve3ImageLEG",isAchieved: false),
-        NEGAchievement(image: "achieve4ImageLEG",isAchieved: false),
-        NEGAchievement(image: "achieve5ImageLEG",isAchieved: false),
+    @Published var achievements: [LEGAchievement] = [
+        LEGAchievement(image: "achieve1ImageLEG",isAchieved: false),
+        LEGAchievement(image: "achieve2ImageLEG",isAchieved: false),
+        LEGAchievement(image: "achieve3ImageLEG",isAchieved: false),
+        LEGAchievement(image: "achieve4ImageLEG",isAchieved: false),
+        LEGAchievement(image: "achieve5ImageLEG",isAchieved: false),
 
     ] {
         didSet {
@@ -29,7 +29,7 @@ class LEGAchievementsViewModel: ObservableObject {
     
     private let userDefaultsAchievementsKey = "achievementsKeyNEG"
     
-    func achieveToggle(_ achive: NEGAchievement) {
+    func achieveToggle(_ achive: LEGAchievement) {
         guard let index = achievements.firstIndex(where: { $0.id == achive.id })
         else {
             return
@@ -48,7 +48,7 @@ class LEGAchievementsViewModel: ObservableObject {
     
     func loadAchievementsItem() {
         if let savedData = UserDefaults.standard.data(forKey: userDefaultsAchievementsKey),
-           let loadedItem = try? JSONDecoder().decode([NEGAchievement].self, from: savedData) {
+           let loadedItem = try? JSONDecoder().decode([LEGAchievement].self, from: savedData) {
             achievements = loadedItem
         } else {
             print("No saved data found")
@@ -56,7 +56,7 @@ class LEGAchievementsViewModel: ObservableObject {
     }
 }
 
-struct NEGAchievement: Codable, Hashable, Identifiable {
+struct LEGAchievement: Codable, Hashable, Identifiable {
     var id = UUID()
     var image: String
     var isAchieved: Bool

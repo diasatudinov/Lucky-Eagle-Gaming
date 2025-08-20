@@ -8,9 +8,9 @@ import SwiftUI
 
 struct LEGShopView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var user = NEGUser.shared
-    @StateObject var viewModel = NEGShopViewModel()
-    @State var category: NGItemCategory = .skin
+    @StateObject var user = LEGUser.shared
+    @StateObject var viewModel = LEGShopViewModel()
+    @State var category: LEGItemCategory = .skin
     var body: some View {
         ZStack {
             
@@ -26,7 +26,7 @@ struct LEGShopView: View {
                         Image(.backIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 140:70)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 140:70)
                             .padding()
                     }
                     ForEach(category == .skin ? viewModel.shopSkinItems:viewModel.shopBgItems, id: \.self) { item in
@@ -52,13 +52,13 @@ struct LEGShopView: View {
                                                     .font(.caption)
                                                     .bold()
                                                     .foregroundStyle(.white)
-                                            }.frame(height: NEGDeviceManager.shared.deviceType == .pad ? 70:40)
+                                            }.frame(height: LEGDeviceManager.shared.deviceType == .pad ? 70:40)
                                             
                                         } else {
                                             Image(.buyBtnLEG)
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 70:40)
+                                                .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 70:40)
                                                 .opacity(viewModel.isMoneyEnough(item: item, user: user, category: .skin) ? 1:0.6)
                                         }
                                         
@@ -78,13 +78,13 @@ struct LEGShopView: View {
                                                         .font(.caption)
                                                         .bold()
                                                         .foregroundStyle(.white)
-                                                }.frame(height: NEGDeviceManager.shared.deviceType == .pad ? 70:40)
+                                                }.frame(height: LEGDeviceManager.shared.deviceType == .pad ? 70:40)
                                                 
                                             } else {
                                                 Image(.buyBtnLEG)
                                                     .resizable()
                                                     .scaledToFit()
-                                                    .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 70:40)
+                                                    .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 70:40)
                                                     .opacity(viewModel.isMoneyEnough(item: item, user: user, category: .background) ? 1:0.6)
                                             }
                                             
@@ -93,7 +93,7 @@ struct LEGShopView: View {
                                 }
                             }.padding()
                         }
-                        .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 140:230)
+                        .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 350:230)
                     }
                     
                     Button {
@@ -102,7 +102,7 @@ struct LEGShopView: View {
                         Image(.backIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 140:70)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 140:70)
                             .padding()
                             .scaleEffect(x: -1, y: -1)
                     }
@@ -120,10 +120,10 @@ struct LEGShopView: View {
                         Image(.backIconLEG)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: NEGDeviceManager.shared.deviceType == .pad ? 140:70)
+                            .frame(height: LEGDeviceManager.shared.deviceType == .pad ? 140:70)
                     }
                     Spacer()
-                    NEGCoinBg()
+                    LEGCoinBg()
                 }.padding()
                 
                 Spacer()

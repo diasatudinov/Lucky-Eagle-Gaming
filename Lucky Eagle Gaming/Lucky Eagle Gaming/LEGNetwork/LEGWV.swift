@@ -59,7 +59,7 @@ struct LEGWV: UIViewRepresentable {
     }
 }
 
-struct NEGWVWrap: View {
+struct LEGWVWrap: View {
     @State private var nAllow = true
     var urlString = ""
     @AppStorage("firstOpen") var firstOpen = true
